@@ -1,6 +1,7 @@
 package com.simplemobiletools.calculator.pageobjects
 
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.withId
@@ -20,24 +21,70 @@ class MainActivityPage {
     private val buttonEight = R.id.btn_8
     private val buttonNine = R.id.btn_9
 
-    fun performAdditionOperation(firstDigit: Int, secondDigit: Int) {
-        onView(withId(mapDigitToButton(firstDigit))).perform(click())
-        onView(withId(R.id.btn_plus)).perform(click())
-        onView(withId(mapDigitToButton(secondDigit))).perform(click())
-        onView(withId(R.id.btn_equals)).perform(click())
+    private val buttonPlus = R.id.btn_plus
+    private val buttonMinus = R.id.btn_minus
+    private val buttonMultiply = R.id.btn_multiply
+    private val buttonDivide = R.id.btn_divide
+    private val buttonPower = R.id.btn_power
+    private val buttonRoot = R.id.btn_root
+    private val buttonPercent = R.id.btn_percent
 
+    private val buttonEquals = R.id.btn_equals
+    private val textViewResult = R.id.result
+    private val textViewFormula = R.id.formula
+
+    fun performAdditionOperation(firstDigit: Int, secondDigit: Int) {
+        performOperation(firstDigit, secondDigit, buttonPlus)
     }
 
     fun performSubtractionOperation(firstDigit: Int, secondDigit: Int) {
-        onView(withId(mapDigitToButton(firstDigit))).perform(click())
-        onView(withId(R.id.btn_minus)).perform(click())
-        onView(withId(mapDigitToButton(secondDigit))).perform(click())
-        onView(withId(R.id.btn_equals)).perform(click())
-
+        performOperation(firstDigit, secondDigit, buttonMinus)
     }
 
-    fun checkResult(expectedResult: String) {
-        onView(withId(R.id.result)).check(matches(withText(expectedResult)))
+    fun performMultiplicationOperation(firstDigit: Int, secondDigit: Int) {
+        performOperation(firstDigit, secondDigit, buttonMultiply)
+    }
+
+    fun performDivisionOperation(firstDigit: Int, secondDigit: Int) {
+        performOperation(firstDigit, secondDigit, buttonDivide)
+    }
+
+    fun performExponentiationOperation(firstDigit: Int, secondDigit: Int) {
+        performOperation(firstDigit, secondDigit, buttonPower)
+    }
+
+    fun performRootOperation(digit: Int) {
+        performOperation(digit, buttonRoot)
+    }
+
+    fun performPercentOperation(firstDigit: Int, secondDigit: Int) {
+        performOperation(firstDigit, secondDigit, buttonPercent)
+    }
+
+    fun verifyResult(expectedResult: String) {
+        onView(withId(textViewResult)).check(matches(withText(expectedResult)))
+    }
+
+    fun verifyFormula(expectedResult: String) {
+        onView(withId(textViewFormula)).check(matches(withText(expectedResult)))
+    }
+
+    fun clickToolbarMenu() {
+        openContextualActionModeOverflowMenu()
+        onView(withText("Settings")).perform(click())
+    }
+
+    private fun performOperation(firstDigit: Int, secondDigit: Int, operation: Int) {
+        onView(withId(mapDigitToButton(firstDigit))).perform(click())
+        onView(withId(operation)).perform(click())
+        onView(withId(mapDigitToButton(secondDigit))).perform(click())
+        onView(withId(buttonEquals)).perform(click())
+    }
+
+    private fun performOperation(digit: Int, operation: Int) {
+        onView(withId(mapDigitToButton(digit))).perform(click())
+        onView(withId(operation)).perform(click())
+        onView(withId(buttonEquals)).perform(click())
     }
 
     private fun mapDigitToButton(digit: Int): Int {
