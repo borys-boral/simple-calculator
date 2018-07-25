@@ -14,7 +14,7 @@ class MainActivityTest {
     var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
 
     @Test
-    fun addition() {
+    fun addition_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performAdditionOperation(1, 2)
             verifyResult("3")
@@ -23,7 +23,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun subtraction() {
+    fun subtraction_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performSubtractionOperation(1, 2)
             verifyResult("-1")
@@ -32,7 +32,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun multiplication() {
+    fun multiplication_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performMultiplicationOperation(9, 8)
             verifyResult("72")
@@ -41,7 +41,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun division() {
+    fun division_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performDivisionOperation(7, 2)
             verifyResult("3.5")
@@ -62,7 +62,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun exponentiation() {
+    fun exponentiation_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performExponentiationOperation(8, 2)
             verifyResult("64")
@@ -71,7 +71,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun root() {
+    fun root_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performRootOperation(9)
             verifyResult("3")
@@ -80,7 +80,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun percent() {
+    fun percent_ShouldDisplayCorrectResult() {
         MainActivityPage().apply {
             performPercentOperation(3, 8)
             verifyResult("0.24")
@@ -89,8 +89,38 @@ class MainActivityTest {
     }
 
     @Test
+    fun whenClearButtonWasClicked_LastDigitInResultTextViewShouldBeRemoved() {
+        MainActivityPage().apply {
+            performAdditionOperation(9, 9)
+            clickClearButton()
+            verifyResult("1")
+            verifyFormula("9+9")
+        }
+    }
+
+    @Test
+    fun whenClearButtonWasClickedAndResultContainsOnlyOneDigit_ResultShouldBeEqualZero() {
+        MainActivityPage().apply {
+            performAdditionOperation(1, 2)
+            clickClearButton()
+            verifyResult("0")
+            verifyFormula("1+2")
+        }
+    }
+
+    @Test
+    fun whenClearButtonWasPressedLong_AllDataInResultAndFormulaTextViewsShouldBeRemoved() {
+        MainActivityPage().apply {
+            performAdditionOperation(1, 2)
+            clickClearButton(true)
+            verifyResult("0")
+            verifyFormula("")
+        }
+    }
+
+    @Test
     fun toolbarMenuShouldContainSettingsAndAboutItems() {
         val mainActivityPage = MainActivityPage()
-        mainActivityPage.clickToolbarMenu()
+        mainActivityPage.goToSettings()
     }
 }

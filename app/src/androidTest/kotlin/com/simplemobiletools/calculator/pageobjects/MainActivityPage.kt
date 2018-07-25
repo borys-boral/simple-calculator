@@ -2,7 +2,9 @@ package com.simplemobiletools.calculator.pageobjects
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu
+import android.support.test.espresso.ViewAction
 import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.longClick
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
@@ -32,6 +34,7 @@ class MainActivityPage {
     private val buttonEquals = R.id.btn_equals
     private val textViewResult = R.id.result
     private val textViewFormula = R.id.formula
+    private val buttonClear = R.id.btn_clear
 
     fun performAdditionOperation(firstDigit: Int, secondDigit: Int) {
         performOperation(firstDigit, secondDigit, buttonPlus)
@@ -61,6 +64,17 @@ class MainActivityPage {
         performOperation(firstDigit, secondDigit, buttonPercent)
     }
 
+    fun clickClearButton(isLongClick: Boolean = false) {
+        when (isLongClick) {
+            true -> clear(::longClick)
+            else -> clear(::click)
+        }
+    }
+
+    private fun clear(clickFunction: () -> ViewAction) {
+        onView(withId(buttonClear)).perform(clickFunction())
+    }
+
     fun verifyResult(expectedResult: String) {
         onView(withId(textViewResult)).check(matches(withText(expectedResult)))
     }
@@ -69,9 +83,14 @@ class MainActivityPage {
         onView(withId(textViewFormula)).check(matches(withText(expectedResult)))
     }
 
-    fun clickToolbarMenu() {
+    fun goToSettings() {
         openContextualActionModeOverflowMenu()
         onView(withText("Settings")).perform(click())
+    }
+
+    fun goToAbout() {
+        openContextualActionModeOverflowMenu()
+        onView(withText("About")).perform(click())
     }
 
     private fun performOperation(firstDigit: Int, secondDigit: Int, operation: Int) {
