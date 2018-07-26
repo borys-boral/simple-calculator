@@ -1,8 +1,12 @@
 package com.simplemobiletools.calculator.activities
 
+import android.support.test.espresso.intent.Intents
+import android.support.test.espresso.intent.Intents.intended
+import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.simplemobiletools.calculator.pageobjects.MainActivityPage
+import com.simplemobiletools.commons.activities.AboutActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -119,8 +123,18 @@ class MainActivityTest {
     }
 
     @Test
-    fun toolbarMenuShouldContainSettingsAndAboutItems() {
-        val mainActivityPage = MainActivityPage()
-        mainActivityPage.goToSettings()
+    fun whenUserSelectSettingsMenuItem_SettingsActivityShouldBeDisplayed() {
+        Intents.init()
+        MainActivityPage().goToSettings()
+        intended(hasComponent(SettingsActivity::class.java.name))
+        Intents.release()
+    }
+
+    @Test
+    fun whenUserSelectAboutMenuItem_AboutActivityShouldBeDisplayed() {
+        Intents.init()
+        MainActivityPage().goToAbout()
+        intended(hasComponent(AboutActivity::class.java.name))
+        Intents.release()
     }
 }
