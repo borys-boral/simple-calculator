@@ -1,12 +1,16 @@
 package com.simplemobiletools.calculator.activities
 
+import android.content.Intent
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.simplemobiletools.calculator.extensions.config
 import com.simplemobiletools.calculator.pageobjects.MainActivityPage
 import com.simplemobiletools.commons.activities.AboutActivity
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,7 +19,15 @@ import org.junit.runner.RunWith
 class MainActivityTest {
 
     @get:Rule
-    var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
+    var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java,
+            true, false)
+
+    @Before
+    fun initialize() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        context.config.avoidWhatsNew = true
+        activityRule.launchActivity(Intent())
+    }
 
     @Test
     fun addition_ShouldDisplayCorrectResult() {
