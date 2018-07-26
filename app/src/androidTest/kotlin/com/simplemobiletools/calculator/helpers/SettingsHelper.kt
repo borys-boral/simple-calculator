@@ -7,6 +7,8 @@ import com.simplemobiletools.calculator.extensions.config
 class SettingsHelper(
         private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext) {
 
+    fun getConfiguration() : Config = context.config
+
     fun setUpDefaultSettings(): Config {
         return context.config.apply {
             useEnglish = true

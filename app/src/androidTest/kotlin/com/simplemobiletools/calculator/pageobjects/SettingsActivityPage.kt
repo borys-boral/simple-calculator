@@ -1,6 +1,7 @@
 package com.simplemobiletools.calculator.pageobjects
 
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
@@ -13,7 +14,7 @@ class SettingsActivityPage {
     private val labelCustomizeColors = R.id.settings_customize_colors_label
     private val holderCustomizeColors = R.id.settings_customize_colors_holder
     private val labelCustomizeWidgetColors = R.id.settings_customize_widget_colors_label
-    private val hoderCustomizeWidgetColors = R.id.settings_customize_widget_colors_holder
+    private val holderCustomizeWidgetColors = R.id.settings_customize_widget_colors_holder
     private val useEnglish = R.id.settings_use_english
     private val holderUseEnglish = R.id.settings_use_english_holder
     private val avoidWhatsNew = R.id.settings_avoid_whats_new
@@ -48,6 +49,30 @@ class SettingsActivityPage {
 
     fun verifyPreventPhoneSleepingSetting(resourceId: Int) {
         verifySettingDescription(preventPhoneSleeping, resourceId)
+    }
+
+    fun goToCustomizeColors() {
+        onView(withId(holderCustomizeColors)).perform(click())
+    }
+
+    fun goToCustomizeWidgetColors() {
+        onView(withId(holderCustomizeWidgetColors)).perform(click())
+    }
+
+    fun clickUseEnglish() {
+        onView(withId(holderUseEnglish)).perform(click())
+    }
+
+    fun clickAvoidWhatsNew() {
+        onView(withId(holderAvoidWhatsNew)).perform(click())
+    }
+
+    fun clickVibrate() {
+        onView(withId(holderVibrate)).perform(click())
+    }
+
+    fun clickPreventPhoneSleeping() {
+        onView(withId(holderPreventPhoneSleeping)).perform(click())
     }
 
     private fun verifySettingDescription(elementId: Int, resourceId: Int) {
