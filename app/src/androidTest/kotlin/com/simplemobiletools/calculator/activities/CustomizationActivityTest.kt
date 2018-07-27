@@ -7,6 +7,7 @@ import com.simplemobiletools.calculator.R
 import com.simplemobiletools.calculator.helpers.SettingsHelper
 import com.simplemobiletools.calculator.pageobjects.CustomizationActivityPage
 import com.simplemobiletools.commons.activities.CustomizationActivity
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,11 +19,14 @@ class CustomizationActivityTest {
     var activityRule = ActivityTestRule<CustomizationActivity>(CustomizationActivity::class.java,
             true, false)
 
-    @Test
-    fun customizeColors_ActivityShouldContainAllRequiredSettingsOptions() {
+    @Before
+    fun initialize() {
         SettingsHelper().setUpDefaultSettings()
         activityRule.launchActivity(Intent())
+    }
 
+    @Test
+    fun customizeColors_ActivityShouldContainAllRequiredSettingsOptions() {
         CustomizationActivityPage().apply {
             verifyThemeCustomization(R.string.theme)
             verifyCustomizationTextColor(R.string.text_color)
@@ -30,6 +34,14 @@ class CustomizationActivityTest {
             verifyCustomizationPrimaryColor(R.string.primary_color)
             verifyCustomizationAppIconColor(R.string.app_icon_color)
             verifyApplyToAll(R.string.apply_to_all_apps)
+        }
+    }
+
+    @Test
+    fun customizeColors_WhenApplyToAllAppsButtonWasClicked_PurchaseDialogShouldBeDisplayed() {
+        CustomizationActivityPage().apply {
+            clickApplyToAll()
+            verifyPurchaseDialog()
         }
     }
 }

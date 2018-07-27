@@ -2,6 +2,9 @@ package com.simplemobiletools.calculator.pageobjects
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.matcher.RootMatchers.isDialog
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import com.simplemobiletools.calculator.R
 import com.simplemobiletools.calculator.helpers.verifyIsElementDisplayed
@@ -27,6 +30,8 @@ class CustomizationActivityPage {
 
     private val holderApplyToAll = R.id.apply_to_all_holder
     private val applyToAll = R.id.apply_to_all
+
+    private val dialogPurchaseThankYou = R.id.purchase_thank_you
 
     fun verifyThemeCustomization(resourceId: Int) {
         verifyIsTextDisplayed(labelCustomizationTheme, resourceId)
@@ -58,7 +63,17 @@ class CustomizationActivityPage {
         verifyIsElementDisplayed(applyToAll)
     }
 
-    fun clickCustomizationThemeLabel() {
-        onView(withId(holderCustomizationTheme)).perform(click())
+    fun clickApplyToAll() {
+        onView(withId(holderApplyToAll)).perform(click())
+    }
+
+    fun verifyPurchaseDialog() {
+        verifyIsDialogDisplayed()
+    }
+
+    private fun verifyIsDialogDisplayed() {
+        onView(withId(dialogPurchaseThankYou))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
     }
 }
