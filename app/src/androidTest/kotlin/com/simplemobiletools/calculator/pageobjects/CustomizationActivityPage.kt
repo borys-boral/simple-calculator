@@ -4,8 +4,8 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import com.simplemobiletools.calculator.R
-import com.simplemobiletools.calculator.helpers.verifyDescription
-import com.simplemobiletools.calculator.helpers.verifyIsElementDisplay
+import com.simplemobiletools.calculator.helpers.verifyIsElementDisplayed
+import com.simplemobiletools.calculator.helpers.verifyIsTextDisplayed
 
 class CustomizationActivityPage {
 
@@ -29,33 +29,33 @@ class CustomizationActivityPage {
     private val applyToAll = R.id.apply_to_all
 
     fun verifyThemeCustomization(resourceId: Int) {
-        verifyDescription(labelCustomizationTheme, resourceId)
-        verifyIsElementDisplay(labelCustomizationTheme)
+        verifyIsTextDisplayed(labelCustomizationTheme, resourceId)
+        verifyIsElementDisplayed(labelCustomizationTheme)
     }
 
     fun verifyCustomizationTextColor(resourceId: Int) {
-        verifyDescription(labelCustomizationTextColor, resourceId)
-        verifyIsElementDisplay(labelCustomizationTextColor)
+        verifyIsTextDisplayed(labelCustomizationTextColor, resourceId)
+        verifyIsElementDisplayed(labelCustomizationTextColor)
     }
 
     fun verifyCustomizationBackgroundColor(resourceId: Int) {
-        verifyDescription(labelCustomizationBackgroundColor, resourceId)
-        verifyIsElementDisplay(labelCustomizationBackgroundColor)
+        verifyIsTextDisplayed(labelCustomizationBackgroundColor, resourceId)
+        verifyIsElementDisplayed(labelCustomizationBackgroundColor)
     }
 
     fun verifyCustomizationPrimaryColor(resourceId: Int) {
-        verifyDescription(labelCustomizationPrimaryColor, resourceId)
-        verifyIsElementDisplay(labelCustomizationPrimaryColor)
+        verifyIsTextDisplayed(labelCustomizationPrimaryColor, resourceId)
+        verifyIsElementDisplayed(labelCustomizationPrimaryColor)
     }
 
     fun verifyCustomizationAppIconColor(resourceId: Int) {
-        verifyDescription(labelCustomizationAppIconColor, resourceId)
-        verifyIsElementDisplay(labelCustomizationAppIconColor)
+        verifyIsTextDisplayed(labelCustomizationAppIconColor, resourceId)
+        verifyIsElementDisplayed(labelCustomizationAppIconColor)
     }
 
     fun verifyApplyToAll(resourceId: Int) {
-        verifyDescription(applyToAll, resourceId)
-        verifyIsElementDisplay(applyToAll)
+        verifyIsTextDisplayed(applyToAll, resourceId)
+        verifyIsElementDisplayed(applyToAll)
     }
 
     fun clickCustomizationThemeLabel() {

@@ -5,10 +5,10 @@ import android.support.test.espresso.Espresso.openContextualActionModeOverflowMe
 import android.support.test.espresso.ViewAction
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.longClick
-import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import com.simplemobiletools.calculator.R
+import com.simplemobiletools.calculator.helpers.verifyIsTextDisplayed
 
 class MainActivityPage {
 
@@ -76,11 +76,11 @@ class MainActivityPage {
     }
 
     fun verifyResult(expectedResult: String) {
-        onView(withId(textViewResult)).check(matches(withText(expectedResult)))
+        verifyIsTextDisplayed(textViewResult, expectedResult)
     }
 
     fun verifyFormula(expectedResult: String) {
-        onView(withId(textViewFormula)).check(matches(withText(expectedResult)))
+        verifyIsTextDisplayed(textViewFormula, expectedResult)
     }
 
     fun goToSettings() {
