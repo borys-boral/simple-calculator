@@ -69,7 +69,7 @@ class MainActivityTest {
         In my opinion division by zero should return information about error instead of 0
     */
     @Test
-    fun divisionByZero_ShouldDisplaysErrorMessage() {
+    fun divisionByZero_ShouldDisplayErrorMessage() {
         MainActivityPage().apply {
             performDivisionOperation(8, 0)
             verifyResult("Can't divide by 0")
