@@ -2,12 +2,10 @@ package com.simplemobiletools.calculator.pageobjects
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.withText
 import com.simplemobiletools.calculator.R
-import org.hamcrest.Matchers.not
+import com.simplemobiletools.calculator.helpers.verifyIsElementDisplayed
+import com.simplemobiletools.calculator.helpers.verifyIsTextDisplayed
 
 class SettingsActivityPage {
 
@@ -25,30 +23,30 @@ class SettingsActivityPage {
     private val holderPreventPhoneSleeping = R.id.settings_prevent_phone_from_sleeping_holder
 
     fun verifyCustomizeColorsSetting(resourceId: Int) {
-        verifySettingDescription(labelCustomizeColors, resourceId)
-        verifyIsSettingDisplay(labelCustomizeColors)
+        verifyIsTextDisplayed(labelCustomizeColors, resourceId)
+        verifyIsElementDisplayed(labelCustomizeColors)
     }
 
     fun verifyCustomizeWidgetColorsSetting(resourceId: Int) {
-        verifySettingDescription(labelCustomizeWidgetColors, resourceId)
-        verifyIsSettingDisplay(labelCustomizeWidgetColors)
+        verifyIsTextDisplayed(labelCustomizeWidgetColors, resourceId)
+        verifyIsElementDisplayed(labelCustomizeWidgetColors)
     }
 
     fun verifyUseEnglishSetting(resourceId: Int, shouldBeDisplayed: Boolean = true) {
-        verifySettingDescription(useEnglish, resourceId)
-        verifyIsSettingDisplay(useEnglish, shouldBeDisplayed)
+        verifyIsTextDisplayed(useEnglish, resourceId)
+        verifyIsElementDisplayed(useEnglish, shouldBeDisplayed)
     }
 
     fun verifyAvoidWhatsNewSetting(resourceId: Int) {
-        verifySettingDescription(avoidWhatsNew, resourceId)
+        verifyIsTextDisplayed(avoidWhatsNew, resourceId)
     }
 
     fun verifyVibrateSetting(resourceId: Int) {
-        verifySettingDescription(vibrate, resourceId)
+        verifyIsTextDisplayed(vibrate, resourceId)
     }
 
     fun verifyPreventPhoneSleepingSetting(resourceId: Int) {
-        verifySettingDescription(preventPhoneSleeping, resourceId)
+        verifyIsTextDisplayed(preventPhoneSleeping, resourceId)
     }
 
     fun goToCustomizeColors() {
@@ -73,16 +71,5 @@ class SettingsActivityPage {
 
     fun clickPreventPhoneSleeping() {
         onView(withId(holderPreventPhoneSleeping)).perform(click())
-    }
-
-    private fun verifySettingDescription(elementId: Int, resourceId: Int) {
-        onView(withId(elementId)).check(matches(withText(resourceId)))
-    }
-
-    private fun verifyIsSettingDisplay(elementId: Int, shouldBeDisplayed: Boolean = true) {
-        when (shouldBeDisplayed) {
-            true -> onView(withId(elementId)).check(matches(isDisplayed()))
-            else -> onView(withId(elementId)).check(matches(not(isDisplayed())))
-        }
     }
 }
