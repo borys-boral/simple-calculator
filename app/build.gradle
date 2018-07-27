@@ -34,11 +34,16 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources true
     }
 }
 
@@ -53,6 +58,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
 }
 
 Properties props = new Properties()

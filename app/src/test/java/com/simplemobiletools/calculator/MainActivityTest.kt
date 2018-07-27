@@ -112,10 +112,7 @@ class MainActivityTest {
     fun clearBtnLongClick_resetsEverything() {
         calcResult(-1.2, PLUS, 3.4)
         activity.calc.handleReset()
-        handleOperation(PLUS)
-        setDouble(3.0)
-        activity.calc.handleResult()
-        assertEquals("3", getDisplayedNumber())
+        assertEquals("0", getDisplayedNumber())
         checkFormula("")
     }
 
